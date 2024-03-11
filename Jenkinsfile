@@ -11,6 +11,7 @@ pipeline{
         string(name: 'ImageName', description: "name of the docker build", defaultValue: 'javapp')
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
         string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'sampatheluri')
+        string(name: 'EC2IP', description: "EC2 instance public IP", defaultValue: '3.84.251.75')
     }
 
     stages{
@@ -78,7 +79,7 @@ pipeline{
             steps{
                script{
                    
-                   connectJfrog()
+                   connectJfrog("${params.EC2IP}")
                }
             }
         }
@@ -87,7 +88,7 @@ pipeline{
             steps{
                script{
                    
-                   pushJfrog()
+                   pushJfrog("${params.EC2IP}")
                }
             }
         }    
